@@ -51,19 +51,9 @@ export class UpdateService extends UpdateApp{
     // Beta测试用户
     private betaUsers = ["1001","1002"]
 
-    // Beta版本
-    private betaVersions = "0.0.5"
-
-    // 是否回滚
-    private isRollback = false
-
-    // 回滚版本
-    private rollbackVersion = "0.0.3"
 
     // 下载量统计
     private downloadCount = 0
-
-    // --------------------------------------------------------------------
 
     // 重新读取配置文件
     public readConfig(){
