@@ -1,0 +1,13 @@
+{
+  "latest": "0.0.4",
+  "isRollback":false,
+  "rollbackVersion":"0.0.2",
+  "betaVersion": "0.0.5",
+  "versions": {
+    "0.0.1": "D:\\Kalend\\lib\\update-app-demo\\dist\\package\\packs/d3e850dc-4c98-4a9c-ae52-1a124b5b3e9e.apk",
+    "0.0.2": "D:\\Kalend\\lib\\update-app-demo\\dist\\package\\packs/bce2e798-631a-4784-aebc-1dc0f305110b.apk",
+    "0.0.3": "D:\\Kalend\\lib\\update-app-demo\\dist\\package\\packs/3773bd9f-06a4-4b67-8500-f23b0feeb156.apk",
+    "0.0.4": "D:\\Kalend\\lib\\update-app-demo\\dist\\package\\packs/0325829c-21b5-4d9b-8f19-3e1a85fdb269.apk",
+    "0.0.5": "D:\\Kalend\\lib\\update-app-demo\\dist\\package\\packs/450ece85-f464-49b1-907e-87713fae0808.apk"
+  }
+}

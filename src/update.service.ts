@@ -7,8 +7,8 @@ export class UpdateService extends UpdateApp{
 
     constructor() {
         // this.update = new UpdateApp(new JsonFileStorage(this.jsonFile ,this.packPath))
-        let jsonFile = "/package/version.json";
-        let packPath = "/package/packs";
+        let jsonFile = "../package/version.json";
+        let packPath = "../package/packs";
 
         let jsonFileStorage = new JsonFileStorage(join(__dirname,jsonFile) ,join(__dirname,packPath))
         super(jsonFileStorage)
