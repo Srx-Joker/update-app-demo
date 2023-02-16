@@ -84,10 +84,11 @@ export class UpdateService extends UpdateApp{
             // 模拟在数据库查找用户信息
             for(let i in this.testUsers){
                 if(this.testUsers[i].id == dist.id){
-                    console.log("总下崽数"+this.downloadCount++)
+                    console.log("总下崽数"+ ++this.downloadCount)
                     console.log("版本更新用户"+this.testUsers[i].username)
+                    console.log(this.betaUsers.indexOf(dist.id) != -1)
                     if(this.betaUsers.indexOf(dist.id) != -1){
-                        next(config.betaVersions)
+                        next(config.betaVersion)
                         return
                     }
 
@@ -111,7 +112,6 @@ export class UpdateService extends UpdateApp{
 
     AfterDownload(file: string | Buffer,dist):void { 
         dist.res.download(file);
-
         console.log("下载完成")
     }
     RefuseDownload(version: string,dist):void {
