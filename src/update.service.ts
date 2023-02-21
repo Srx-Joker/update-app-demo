@@ -1,4 +1,4 @@
-import { UpdateApp , JsonFileStorage, Tools} from "update-app"
+import { UpdateApp , JsonFileStorage, Tools} from "update-app-server"
 import { join } from "path";
 
 export class UpdateService extends UpdateApp{

@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { FormDataRequest } from 'nestjs-form-data/dist/decorators';
 import { AppService } from './app.service';
 import { UpdateService } from './update.service';
+import { v4 as uuid } from 'uuid';
 
 @Controller()
 export class AppController {
@@ -34,11 +35,14 @@ export class AppController {
   @Get('download/:apkName')
   // 下载文件接口
   downloadApp(@Query("userID") id:string,@Res() res: Response) {
+    res.download
+    let taskID = uuid();
+    console.log("下载文件：",taskID,"用户ID：",id)
     if(!id){
       console.log("用户ID为空")
       return
     }
-    this.updateService.start(false,{id,res});
+    this.updateService.start(false,{id,res,taskID});
   }
 
   @Post('upload/')

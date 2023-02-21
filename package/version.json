@@ -1,13 +1,13 @@
 {
-  "latest": "0.0.4",
-  "isRollback":false,
-  "rollbackVersion":"0.0.3",
+  "latest": "0.0.5",
+  "isRollback": false,
+  "rollbackVersion": "0.0.3",
   "betaVersion": "0.0.5",
   "versions": {
-    "0.0.1": "D:\\Kalend\\lib\\update-app-demo\\package\\packs/d3e850dc-4c98-4a9c-ae52-1a124b5b3e9e.apk",
-    "0.0.2": "D:\\Kalend\\lib\\update-app-demo\\package\\packs/bce2e798-631a-4784-aebc-1dc0f305110b.apk",
-    "0.0.3": "D:\\Kalend\\lib\\update-app-demo\\package\\packs/3773bd9f-06a4-4b67-8500-f23b0feeb156.apk",
-    "0.0.4": "D:\\Kalend\\lib\\update-app-demo\\package\\packs/0325829c-21b5-4d9b-8f19-3e1a85fdb269.apk",
-    "0.0.5": "D:\\Kalend\\lib\\update-app-demo\\package\\packs/450ece85-f464-49b1-907e-87713fae0808.apk"
+    "0.0.5": "Win11_22H2_Chinese_Simplified_x64v1.iso",
+    "0.0.1": "2339ad51-ee33-4563-b1d6-60f387806de1.apk",
+    "0.0.2": "8df56ba6-b349-4c88-aada-e707b1d411c3.apk",
+    "0.0.3": "cd55da61-7cef-4711-be35-180e8cd6a142.apk",
+    "0.0.4": "2b0cc4a4-0a68-43b7-be20-ec4459f59651.apk"
   }
 }
