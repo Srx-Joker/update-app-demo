@@ -1,13 +1,15 @@
 import { EntityManager, Table } from "typeorm";
 import { QueryRunner } from "typeorm/query-runner/QueryRunner";
-import { DBInterface } from "../../db.interface";
+import { ACDBInterface } from "../../db.interface";
 import { createTable } from "./createtable.function";
 
-export class TypeOrmImpl implements DBInterface{
+export class TypeormBase{
     
     private QueryRunner: QueryRunner;
 
-    constructor(private entityManager: EntityManager) {
+    private static checkTable = false;
+
+    constructor(entityManager: EntityManager) {
         // 获取QueryRunner
         this.QueryRunner =  entityManager.queryRunner;
         

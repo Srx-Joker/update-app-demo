@@ -29,7 +29,8 @@ export class UpdateService extends UpdateApp{
     
 
     BeginDownload(version: string, next: (version: string) => void, refuse: ()=>void, dist: any):void {
-        // 特殊版本用户
+        // 特殊版本用户检查
+
 
         // 回滚版本
 
