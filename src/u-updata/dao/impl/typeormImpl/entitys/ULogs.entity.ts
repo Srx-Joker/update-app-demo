@@ -15,9 +15,11 @@ export class ULogs {
         type: 'text',
     })
     value: string;
-    
+
     @Column({
         type: 'date',
+        default: () => 'CURRENT_TIMESTAMP'
     })
+
     time: Date;
 }
