@@ -1,6 +1,9 @@
+import { EntityManager } from "typeorm";
+import { TypeormAc } from "../dao/impl/typeorm/typeorm.ac";
 
-export class AccessControlService {
-    constructor() {
-        // 占个坑暂时不需要
+
+export class AccessControlService extends TypeormAc{
+    constructor(entityManager:EntityManager) {
+        super(entityManager);
     }
 }

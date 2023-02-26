@@ -144,7 +144,7 @@ export function createTable(QueryRunner: QueryRunner): Promise<void> {
                         name: "ULogsType",
                         columns: [
                             {
-                                name: "ul_id",
+                                name: "ult_id",
                                 type: "int",
                                 isPrimary: true,
                             },
@@ -175,8 +175,45 @@ export function createTable(QueryRunner: QueryRunner): Promise<void> {
             }
         }
 
+
         )
 
+        // ULogs
+        this.QueryRunner.hasTable("ULogs").then((hasTable) => {
+            if (!hasTable) {
+                this.QueryRunner.createTable(
+                    new Table({
+                        name: "ULogs",
+                        columns: [
+                            {
+                                name: "ul_id",
+                                type: "int",
+                                isPrimary: true,
+                            },
+                            {
+                                name: "type",
+                                type: "varchar",
+                                length: "255",
+                            },
+                            {
+                                name: "value",
+                                type: "text",
+                            },
+                            {
+                                name: "time",
+                                type: "varchar",
+                                length: "255",
+                            }
 
+                        ]
+                    }
+                    )
+                ).then(() => {
+                    retfunc("ULogs");
+                })
+            } else {
+                retfunc("ULogs");
+            }
+        })
     })
 }
