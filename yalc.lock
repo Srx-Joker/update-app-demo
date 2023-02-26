@@ -4,6 +4,11 @@
     "update-app": {
       "signature": "73bcdefacf2837db99278c4051dc1b9e",
       "file": true
+    },
+    "update-app-server": {
+      "signature": "9d520490b30ff5cd223b5b4bebf78374",
+      "file": true,
+      "replaced": "^1.0.11"
     }
   }
 }

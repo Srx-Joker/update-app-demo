@@ -5,10 +5,17 @@ export class UFileVerions {
     @PrimaryGeneratedColumn()
     uf_id: number;
 
-    @Column()
+    @Column({
+        unique: true,
+        type: 'varchar',
+        length:  20
+    })
     version: string;
 
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255
+    })
     file_name: string;
 
 }

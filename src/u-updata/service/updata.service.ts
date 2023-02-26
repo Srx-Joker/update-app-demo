@@ -1,66 +1,53 @@
-import { UpdateApp , JsonFileStorage, Tools} from "update-app-server"
+import { UpdateApp , JsonFileStorage, Tools, TypeormFileStorage} from "update-app-server"
 import { join } from "path";
+import { DataSource, EntityManager } from "typeorm";
+import { createTable } from "../dao/impl/typeorm/createtable.function";
 
 export class UpdateService extends UpdateApp{
 
-    private jsonFileStorage: JsonFileStorage
+    private typeormFileStorage: TypeormFileStorage
 
-    constructor() {
-        // this.update = new UpdateApp(new JsonFileStorage(this.jsonFile ,this.packPath))
-        let jsonFile = "../package/version.json";
+    constructor( private dataSource:DataSource ) {
+
+        let queryRunner = dataSource.createQueryRunner();
+
         let packPath = "../package/packs";
+        createTable(queryRunner);
 
-        let jsonFileStorage = new JsonFileStorage(join(__dirname,jsonFile) ,join(__dirname,packPath))
-        super(jsonFileStorage)
+        let typeormFileStorage = new TypeormFileStorage(join(__dirname, packPath),dataSource)
+        super(typeormFileStorage)
 
-        this.jsonFileStorage = jsonFileStorage
-    }
-
-    // 重新读取配置文件
-    public readConfig(){
-        this.jsonFileStorage.readCoinfig();
-    }
-
-    // 版本更新检查
-    public CheckUpdate(version: string):boolean {
-        // 用户使用版本更新 存缓存 然后定时写入数据库
-        return Tools.compareVersion(version, this.jsonFileStorage.getLatestVersion()) == 1
+        this.typeormFileStorage = typeormFileStorage
     }
     
 
+    // 版本更新检查
+    public CheckUpdate(version: string):boolean {
+        return false;
+    }
+
+
     BeginDownload(version: string, next: (version: string) => void, refuse: ()=>void, dist: any):void {
-        // 特殊版本用户检查
-
-
-        // 回滚版本
-
-        // 下载负载
-
-        // 下载队列
 
     }
 
     BegineUpload(version: string, next: (version: string) => void, refuse: Function, dist: any): void {
-        // 版本号检查
-
-        // 上传权限检查
-
+        console.log("上传版本：",version)
+        next(version)
     }
 
     AfterDownload(file: string | Buffer,dist):void { 
-        // 用户使用版本更新
-
-        // 下载量统计
+        dist.res.download(file);
+        console.log("下载完成")
     }
     RefuseDownload(version: string,dist):void {
-        // 日志记录
-
+        console.log("下载失败-拒绝下载")
     }
     
     AfterUpload(version: string,dist):void {
-        // 日志记录
+        console.log("上传完成")
     }
     RefuseUpload(dist): void {
-        // 日志记录
+        console.log("上传失败-拒绝上传")
     }
 }

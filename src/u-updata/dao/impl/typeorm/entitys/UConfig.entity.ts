@@ -5,12 +5,22 @@ export class UConfig{
     @PrimaryGeneratedColumn()
     uc_id: number;
 
-    @Column()
+    @Column({
+        unique: true,
+        type: 'varchar',
+        length: 255
+    })
     configItem: string;
 
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255
+    })
     value: string;
 
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255
+    })
     remark: string;
 }

@@ -2,18 +2,37 @@ import { Controller, Get, Res,Post, Body, Query ,UploadedFile } from '@nestjs/co
 import { Response } from 'express';
 import { FormDataRequest } from 'nestjs-form-data/dist/decorators';
 import { AppService } from './app.service';
-import { UpdateService } from './update.service';
 import { v4 as uuid } from 'uuid';
+import { DataSource } from "typeorm";
+import { UpdateService } from './u-updata/service/updata.service';
 
 @Controller()
 export class AppController {
   private updateService: UpdateService;
 
   constructor(
-    private readonly appService: AppService
+    private readonly appService: AppService,
+    
+
     
   ) {
-    this.updateService = new UpdateService();
+
+    this.initDB();
+  }
+
+  private async  initDB(){
+    let dataSource:DataSource =  new DataSource({
+      type: "postgres",
+      host: "localhost",
+      port: 5432,
+      username: "postgres",
+      password: "mysecretpassword",
+      database: "DemoUpdateLib",
+      schema: "public",
+      
+    })
+    await dataSource.initialize();
+    this.updateService =  new UpdateService(dataSource);
   }
 
   @Get()

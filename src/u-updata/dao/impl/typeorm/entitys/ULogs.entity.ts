@@ -5,12 +5,19 @@ export class ULogs {
     @PrimaryGeneratedColumn()
     ul_id: number;
 
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255
+    })
     type: string;
 
-    @Column()
+    @Column({
+        type: 'text',
+    })
     value: string;
     
-    @Column()
+    @Column({
+        type: 'date',
+    })
     time: Date;
 }

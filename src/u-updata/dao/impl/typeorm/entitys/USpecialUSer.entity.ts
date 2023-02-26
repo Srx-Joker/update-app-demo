@@ -5,9 +5,14 @@ export class USpecialUser {
     @PrimaryGeneratedColumn()
     us_id: number;
 
-    @Column()
+    @Column({
+        unique: true,
+    })
     u_id: number;
     
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255
+    })
     us_version: string;
 }

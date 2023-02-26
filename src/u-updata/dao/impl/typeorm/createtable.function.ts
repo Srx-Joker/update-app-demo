@@ -1,7 +1,7 @@
 import { Table } from "typeorm"
 import { QueryRunner } from "typeorm/query-runner/QueryRunner"
 
-export function createTable(QueryRunner: QueryRunner): Promise<void> {
+export function createTable(queryRunner: QueryRunner): Promise<void> {
     return new Promise((resolve, reject) => {
         let tables = { "USpecialUser": false, "UFileVersions": false, "UConfig": false, "ULogsType": false }
 
@@ -24,10 +24,10 @@ export function createTable(QueryRunner: QueryRunner): Promise<void> {
 
 
         // USpecialUser
-        this.QueryRunner.hasTable("USpecialUser").then((hasTable) => {
+        queryRunner.hasTable("USpecialUser").then((hasTable) => {
 
             if (!hasTable) {
-                this.QueryRunner.createTable(
+                queryRunner.createTable(
                     new Table({
                         name: "USpecialUser",
                         columns: [
@@ -60,10 +60,10 @@ export function createTable(QueryRunner: QueryRunner): Promise<void> {
         })
 
         // UFileVersions 
-        this.QueryRunner.hasTable("UFileVersions").then((hasTable) => {
+        queryRunner.hasTable("UFileVersions").then((hasTable) => {
 
             if (!hasTable) {
-                this.QueryRunner.createTable(
+                queryRunner.createTable(
                     new Table({
                         name: "UFileVersions",
                         columns: [
@@ -97,9 +97,9 @@ export function createTable(QueryRunner: QueryRunner): Promise<void> {
         )
 
         // UConfig 
-        this.QueryRunner.hasTable("UConfig").then((hasTable) => {
+        queryRunner.hasTable("UConfig").then((hasTable) => {
             if (!hasTable) {
-                this.QueryRunner.createTable(
+                queryRunner.createTable(
                     new Table({
                         name: "UConfig",
                         columns: [
@@ -137,9 +137,9 @@ export function createTable(QueryRunner: QueryRunner): Promise<void> {
         )
 
         // ULogsType
-        this.QueryRunner.hasTable("ULogsType").then((hasTable) => {
+        queryRunner.hasTable("ULogsType").then((hasTable) => {
             if (!hasTable) {
-                this.QueryRunner.createTable(
+                queryRunner.createTable(
                     new Table({
                         name: "ULogsType",
                         columns: [
@@ -179,9 +179,9 @@ export function createTable(QueryRunner: QueryRunner): Promise<void> {
         )
 
         // ULogs
-        this.QueryRunner.hasTable("ULogs").then((hasTable) => {
+        queryRunner.hasTable("ULogs").then((hasTable) => {
             if (!hasTable) {
-                this.QueryRunner.createTable(
+                queryRunner.createTable(
                     new Table({
                         name: "ULogs",
                         columns: [
