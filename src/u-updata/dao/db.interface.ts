@@ -30,7 +30,7 @@ interface ACDBInterface {
      * @param userId 用户ID
      * @param version 版本号
      */
-    updateUserDownloadVersion(userId: number, version: string): Promise<boolean>;  
+    updateUserDownloadVersion(userId: number, version: string): Promise<boolean>;
 }
 
 interface LogDBInterface {
@@ -38,22 +38,46 @@ interface LogDBInterface {
 }
 
 interface ConfigDBInterface {
-    // 添加配置项
-    addConfigItem(key: string, value: string,remark:string): Promise<boolean>;
+    /**
+     * 添加配置项
+     * @param configItem 配置项
+     * @param value 值
+     * @param remark 备注
+     */
+    addConfigItem(configItem: string, value: string, remark: string): Promise<boolean>;
 
-    // 删除配置项
-    deleteConfigItem(key: string): Promise<boolean>;
+    /**
+     * 删除配置项
+     * @param configItem 配置项
+     */
+    deleteConfigItem(configItem: string): Promise<boolean>;
 
-    // 修改配置项
-    updateConfigItem(key: string, value: string,remark:string): Promise<boolean>;
+    /**
+     * 检查配置项是否存在
+     * @param configItem 配置项
+     */
+    checkConfigItem(configItem: string):Promise<boolean>;
 
-    // 获取配置项
-    getConfigItem(key: string): Promise<any>;
+    /**
+     * 修改配置项
+     * @param configItem 配置项
+     * @param value 值
+     * @param remark 备注
+     */
+    updateConfigItem(configItem: string, value: string, remark: string): Promise<boolean>;
 
-    // 初始化配置项
-    initConfigItem(): Promise<boolean>;
+    /**
+     * 获取配置项
+     * @param configItem 配置项
+     */
+    getConfigItem(configItem: string): Promise<any>;
+
+    /**
+     * 初始化配置项
+     */
+    initConfigItem(items: { [key: string]: string }): Promise<boolean>;
 
 }
 
 
-export { ACDBInterface }
+export { ACDBInterface, ConfigDBInterface }
