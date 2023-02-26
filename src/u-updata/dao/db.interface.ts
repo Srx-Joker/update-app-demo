@@ -34,6 +34,67 @@ interface ACDBInterface {
 }
 
 interface LogDBInterface {
+    /**
+     * 添加日志类型
+     * @param type 日志类型
+     * @param analysis 解析方式
+     * @param remark 备注
+     */
+    addLogType(type: string, analysis: string, remark: string): Promise<boolean>;
+
+    /**
+     * 删除日志类型
+     * @param type 日志类型
+     */
+    deleteLogType(type: string): Promise<boolean>;
+
+    /**
+     * 修改日志类型
+     * @param type 日志类型
+     * @param analysis 解析方式
+     * @param remark 备注
+     */
+    updateLogType(type: string, analysis: string, remark: string): Promise<boolean>;
+
+    /**
+     * 检查日志类型是否存在
+     * @param type 日志类型
+     */
+    checkLogType(type: string): Promise<boolean>;
+
+    /**
+     * 获取日志类型
+     * @param type 日志类型
+     */
+    getLogType(type: string): Promise<any>;
+
+    /**
+     * 添加日志
+     * @param type 日志类型
+     * @param value 日志内容
+     * @param time 记录时间
+     */
+    addLog(type: string, value: string, time: Date): Promise<boolean>;
+
+    /**
+     * 按时间删除日志
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     */
+    deleteLogByTime(startTime:Date,endTime:Date): Promise<boolean>;
+
+    /**
+     * 按时间获取日志
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     */
+    getLogByTime(startTime:Date,endTime:Date): Promise<any>;
+
+    // 获取所有日志
+    getAllLog(): Promise<any[]>;
+
+    // 获取所有日志类型
+    getAllLogType(): Promise<any[]>;
 
 }
 
@@ -56,7 +117,7 @@ interface ConfigDBInterface {
      * 检查配置项是否存在
      * @param configItem 配置项
      */
-    checkConfigItem(configItem: string):Promise<boolean>;
+    checkConfigItem(configItem: string): Promise<boolean>;
 
     /**
      * 修改配置项
@@ -80,4 +141,4 @@ interface ConfigDBInterface {
 }
 
 
-export { ACDBInterface, ConfigDBInterface }
+export { ACDBInterface, ConfigDBInterface ,LogDBInterface}

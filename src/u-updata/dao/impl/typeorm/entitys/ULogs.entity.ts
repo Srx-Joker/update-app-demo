@@ -1,13 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class USpecialUser {
+export class ULogs {
     @PrimaryGeneratedColumn()
-    us_id: number;
+    ul_id: number;
 
     @Column()
-    u_id: number;
+    type: string;
+
+    @Column()
+    value: string;
     
     @Column()
-    us_version: string;
+    time: Date;
 }
