@@ -3,7 +3,7 @@ import { QueryRunner } from "typeorm/query-runner/QueryRunner"
 
 export function createTable(queryRunner: QueryRunner): Promise<void> {
     return new Promise((resolve, reject) => {
-        let tables = { "USpecialUser": false, "UFileVersions": false, "UConfig": false, "ULogsType": false }
+        let tables = { "USpecialUser": false, "UFileVersions": false, "UConfig": false, "ULogsType": false, "UUploadUser": false }
 
         let retfunc = (table: string) => {
             tables[table] = true;
@@ -21,6 +21,34 @@ export function createTable(queryRunner: QueryRunner): Promise<void> {
                 resolve();
             }
         }
+
+        // UUploadUser
+        queryRunner.hasTable("UUploadUser").then((hasTable) => {
+            if (!hasTable) {
+                queryRunner.createTable(
+                    new Table({
+                        name: "UUploadUser",
+                        columns: [
+                            {
+                                name: "uu_id",
+                                type: "int",
+                                isPrimary: true,
+                            },
+                            {
+                                name: "u_id",
+                                type: "int",
+                                isUnique: true,
+                            },
+                        ]
+                    }
+                    )
+                ).then(() => {
+                    retfunc("UUploadUser");
+                })
+            } else {
+                retfunc("UUploadUser");
+            }
+        })
 
 
         // USpecialUser
@@ -58,43 +86,6 @@ export function createTable(queryRunner: QueryRunner): Promise<void> {
                 retfunc("USpecialUser");
             }
         })
-
-        // UFileVersions 
-        queryRunner.hasTable("UFileVersions").then((hasTable) => {
-
-            if (!hasTable) {
-                queryRunner.createTable(
-                    new Table({
-                        name: "UFileVersions",
-                        columns: [
-                            {
-                                name: "uf_id",
-                                type: "int",
-                                isPrimary: true,
-                            },
-                            {
-                                name: "version",
-                                type: "varchar",
-                                length: "255",
-                                isUnique: true,
-                            },
-                            {
-                                name: "file_name",
-                                type: "varchar",
-                                length: "255",
-                            }
-
-                        ]
-                    }
-                    )
-                ).then(() => {
-                    retfunc("UFileVersions");
-                })
-            } else {
-                retfunc("UFileVersions");
-            }
-        }
-        )
 
         // UConfig 
         queryRunner.hasTable("UConfig").then((hasTable) => {

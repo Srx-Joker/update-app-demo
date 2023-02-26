@@ -26,11 +26,41 @@ interface ACDBInterface {
     getAllSpecialUser(): Promise<any[]>;
 
     /**
+     * 获取指定用户的下载版本
+     * @param userId 用户ID
+     */
+    getUserDownloadVersion(userId: number): Promise<string>;
+
+    /**
      * 修改用户需要下载的版本
      * @param userId 用户ID
      * @param version 版本号
      */
     updateUserDownloadVersion(userId: number, version: string): Promise<boolean>;
+
+    /**
+     * 添加上传用户
+     * @param userId 用户ID
+     */
+    addUploadUser(userId: number): Promise<boolean>;
+
+    /**
+     * 删除上传用户
+     * @param userId 用户ID
+    */
+    deleteUploadUser(userId: number): Promise<boolean>;
+
+    /**
+     * 验证用户是否为上传用户
+     * @param userId 用户ID
+     */
+    checkUserIsUploadUser(userId: number): Promise<boolean>;
+
+    /**
+     * 获取所有上传用户
+     * @param userId 用户ID
+     */
+    getAllUploadUser(): Promise<any[]>;
 }
 
 interface LogDBInterface {

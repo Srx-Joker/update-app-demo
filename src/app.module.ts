@@ -1,12 +1,20 @@
 import { Module } from '@nestjs/common';
-import { NestjsFormDataModule } from 'nestjs-form-data';
+import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UpdataModule } from './u-updata/updata.module';
 
 @Module({
   imports: [
-    NestjsFormDataModule,
-
+    UpdataModule.forRoot(new DataSource({
+      type: "postgres",
+      host: "localhost",
+      port: 5432,
+      username: "postgres",
+      password: "mysecretpassword",
+      database: "DemoUpdateLib",
+      schema: "public",
+    })),
   ],
   controllers: [AppController],
   providers: [AppService],

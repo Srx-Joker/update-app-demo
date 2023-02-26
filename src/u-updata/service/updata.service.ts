@@ -2,22 +2,35 @@ import { UpdateApp , JsonFileStorage, Tools, TypeormFileStorage} from "update-ap
 import { join } from "path";
 import { DataSource, EntityManager } from "typeorm";
 import { createTable } from "../dao/impl/typeorm/createtable.function";
+import { AccessControlService } from "../ac/AccessControl.service";
+import { LogService } from "../log/log.service";
 
 export class UpdateService extends UpdateApp{
 
     private typeormFileStorage: TypeormFileStorage
+    private accessControl: AccessControlService
 
-    constructor( private dataSource:DataSource ) {
+    // 日志可能不用这个
+    private logService:LogService
+
+    constructor( private dataSource:DataSource) {
 
         let queryRunner = dataSource.createQueryRunner();
-
-        let packPath = "../package/packs";
+        
+        // 如果没有表的话创建表
         createTable(queryRunner);
 
+        // 初始化文件存储
+        let packPath = "../package/packs";
         let typeormFileStorage = new TypeormFileStorage(join(__dirname, packPath),dataSource)
+
         super(typeormFileStorage)
 
+        // 文件存储对象
         this.typeormFileStorage = typeormFileStorage
+
+        // 初始化访问控制器
+        this.accessControl = new AccessControlService(queryRunner.manager)
     }
     
 
@@ -27,11 +40,23 @@ export class UpdateService extends UpdateApp{
     }
 
 
-    BeginDownload(version: string, next: (version: string) => void, refuse: ()=>void, dist: any):void {
-
+    async BeginDownload(version: string, next: (version: string) => void, refuse: ()=>void, dist: any):Promise<void> {
+        let isVersion = await this.accessControl.checkUserNeedDownloadVersion(dist.id)
+        if (isVersion) {
+            let newVersion = await this.accessControl.getUserDownloadVersion(dist.id)
+            next(newVersion)
+        }else{
+            next(version)
+        }
     }
 
     BegineUpload(version: string, next: (version: string) => void, refuse: Function, dist: any): void {
+        let access = this.accessControl.checkUserIsUploadUser(dist.id)
+        if (access) {
+            next(version)
+        }else{
+            refuse()
+        }
         console.log("上传版本：",version)
         next(version)
     }
