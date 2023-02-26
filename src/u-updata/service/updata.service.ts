@@ -46,9 +46,10 @@ export class UpdateService extends UpdateApp{
         }
     }
 
-    BegineUpload(version: string, next: (version: string) => void, refuse: Function, dist: any): void {
+    async BegineUpload(version: string, next: (version: string) => void, refuse: Function, dist: any): Promise<void> {
         // 检查用户是否有上传权限
-        let access = this.accessControl.checkUserIsUploadUser(dist.id)
+        let access = await this.accessControl.checkUserIsUploadUser(dist.id)
+        console.log("上传权限：",access)
 
         if (access) {
             next(version)
@@ -56,7 +57,6 @@ export class UpdateService extends UpdateApp{
             refuse()
         }
         console.log("上传版本：",version)
-        next(version)
     }
 
     AfterDownload(file: string | Buffer,dist):void { 

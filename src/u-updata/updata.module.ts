@@ -25,9 +25,6 @@ export class UpdataModule {
 
     dataSource.synchronize()
 
-    // 查看所有扫描到的entity
-    console.log(dataSource.entityMetadatas);
-
     // 这里总感觉不是这样弄得, 有机会改掉
     // 将dataSource注入到UpdataController中
     UpdataController.dataSource = dataSource;
