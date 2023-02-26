@@ -6,7 +6,7 @@
       "file": true
     },
     "update-app-server": {
-      "signature": "9d520490b30ff5cd223b5b4bebf78374",
+      "signature": "d5c83654d9f6c2acc046ad6e5734956e",
       "file": true,
       "replaced": "^1.0.11"
     }

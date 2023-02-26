@@ -12,9 +12,6 @@ export class TypeormBase{
     constructor(entityManager: EntityManager) {
         // 获取QueryRunner
         this.QueryRunner =  entityManager.queryRunner;
-        
-        // 创建表
-        createTable(this.QueryRunner);
     }
 
 

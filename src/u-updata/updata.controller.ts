@@ -12,7 +12,7 @@ export class UpdataController {
 
 
     constructor() {
-
+        this.updateService = new UpdateService(UpdataController.dataSource);
     }
 
 
@@ -43,7 +43,7 @@ export class UpdataController {
 
     @Post('upload/')
     @FormDataRequest()
-    uploadApp(@Body("file") file: Buffer, @Body("version") version: string) {
+    uploadApp(@Body("file") file: Buffer, @Body("version") version: string,@Body("userID") id: string) {
 
         if (!file) {
             console.log("上传文件为空")
@@ -58,7 +58,7 @@ export class UpdataController {
 
         const buffer = Buffer.from(file.buffer);
 
-        this.updateService.upload(buffer, version);
+        this.updateService.upload(buffer, version, { id, taskID: uuid() });
 
     }
 

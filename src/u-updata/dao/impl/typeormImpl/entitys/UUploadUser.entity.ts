@@ -1,6 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({
+    name: "u_upload_user",
+    synchronize: true,
+})
 export class UUploadlUser {
     @PrimaryGeneratedColumn()
     us_id: number;

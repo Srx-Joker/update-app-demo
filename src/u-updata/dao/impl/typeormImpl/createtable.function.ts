@@ -32,6 +32,7 @@ export function createTable(queryRunner: QueryRunner): Promise<void> {
                             {
                                 name: "uu_id",
                                 type: "int",
+                                isGenerated: true,
                                 isPrimary: true,
                             },
                             {
@@ -62,6 +63,7 @@ export function createTable(queryRunner: QueryRunner): Promise<void> {
                             {
                                 name: "us_id",
                                 type: "int",
+                                isGenerated: true,
                                 isPrimary: true,
                             },
                             {
@@ -97,6 +99,7 @@ export function createTable(queryRunner: QueryRunner): Promise<void> {
                             {
                                 name: "uc_id",
                                 type: "int",
+                                isGenerated: true,
                                 isPrimary: true,
                             },
                             {
@@ -137,6 +140,7 @@ export function createTable(queryRunner: QueryRunner): Promise<void> {
                             {
                                 name: "ult_id",
                                 type: "int",
+                                isGenerated: true,
                                 isPrimary: true,
                             },
                             {
@@ -179,6 +183,7 @@ export function createTable(queryRunner: QueryRunner): Promise<void> {
                             {
                                 name: "ul_id",
                                 type: "int",
+                                isGenerated: true,
                                 isPrimary: true,
                             },
                             {

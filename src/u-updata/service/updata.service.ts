@@ -1,14 +1,14 @@
-import { UpdateApp , JsonFileStorage, Tools, TypeormFileStorage} from "update-app-server"
+import { UpdateApp , TypeormFileStorage} from "update-app-server"
 import { join } from "path";
 import { DataSource, EntityManager } from "typeorm";
-import { createTable } from "../dao/impl/typeorm/createtable.function";
+import { createTable } from "../dao/impl/typeormImpl/createtable.function";
 import { AccessControlService } from "../ac/AccessControl.service";
 import { LogService } from "../log/log.service";
 
 export class UpdateService extends UpdateApp{
 
-    private typeormFileStorage: TypeormFileStorage
-    private accessControl: AccessControlService
+    public typeormFileStorage: TypeormFileStorage
+    public accessControl: AccessControlService
 
     // 日志可能不用这个
     private logService:LogService
@@ -16,13 +16,10 @@ export class UpdateService extends UpdateApp{
     constructor( private dataSource:DataSource) {
 
         let queryRunner = dataSource.createQueryRunner();
-        
-        // 如果没有表的话创建表
-        createTable(queryRunner);
 
         // 初始化文件存储
-        let packPath = "../package/packs";
-        let typeormFileStorage = new TypeormFileStorage(join(__dirname, packPath),dataSource)
+        let packPath = "./package/packs";
+        let typeormFileStorage = new TypeormFileStorage(join(process.cwd(), packPath),dataSource)
 
         super(typeormFileStorage)
 
@@ -39,7 +36,6 @@ export class UpdateService extends UpdateApp{
         return false;
     }
 
-
     async BeginDownload(version: string, next: (version: string) => void, refuse: ()=>void, dist: any):Promise<void> {
         let isVersion = await this.accessControl.checkUserNeedDownloadVersion(dist.id)
         if (isVersion) {
@@ -51,7 +47,9 @@ export class UpdateService extends UpdateApp{
     }
 
     BegineUpload(version: string, next: (version: string) => void, refuse: Function, dist: any): void {
+        // 检查用户是否有上传权限
         let access = this.accessControl.checkUserIsUploadUser(dist.id)
+
         if (access) {
             next(version)
         }else{
