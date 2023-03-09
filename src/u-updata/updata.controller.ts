@@ -9,23 +9,24 @@ import { UpdateService } from './service/updata.service';
 export class UpdataController {
     private updateService: UpdateService;
     public static dataSource: DataSource;
+    public static packagePath: string;
 
 
     constructor() {
-        this.updateService = new UpdateService(UpdataController.dataSource);
+        this.updateService = new UpdateService(UpdataController.dataSource, UpdataController.packagePath);
     }
 
 
 
     @Get('checkUpdate')
-    updateApp(@Query("version") version: string): string {
+    updateApp(@Query("version") version: string, @Query("userID") id:number): string {
         if (!version) {
             console.log("版本号为空")
             return
         }
 
         console.log("当前版本：", version)
-        return this.updateService.CheckUpdate(version).toString();
+        return this.updateService.CheckUpdate(version,id).toString();
     }
 
     @Get('download/:apkName')
@@ -33,11 +34,13 @@ export class UpdataController {
     downloadApp(@Query("userID") id: string, @Res() res: Response) {
         res.download
         let taskID = uuid();
-        console.log("下载文件：", taskID, "用户ID：", id)
+        console.log("下载文件:", taskID, "用户ID:", id)
         if (!id) {
             console.log("用户ID为空")
             return
         }
+
+        
         this.updateService.start(false, { id, res, taskID });
     }
 

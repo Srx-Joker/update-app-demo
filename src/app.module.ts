@@ -5,7 +5,7 @@ import { UpdataModule } from './u-updata/updata.module';
 
 @Module({
   imports: [
-    UpdataModule.forRoot({
+    UpdataModule.useTypeorm({
       type: "postgres",
       host: "localhost",
       port: 5432,
@@ -14,7 +14,9 @@ import { UpdataModule } from './u-updata/updata.module';
       database: "DemoUpdateLib",
       schema: "public",
       synchronize: true,
-    }),    
+    },
+    "./package/packs"
+    ),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -14,7 +14,7 @@ import { UpdataController } from './updata.controller';
   imports: []
 })
 export class UpdataModule {
-  public static async forRoot(DataSourceOptions: DataSourceOptions,hasController:boolean = true): Promise<DynamicModule> {
+  public static async useTypeorm(DataSourceOptions: DataSourceOptions,packagePath:string,hasController:boolean = true): Promise<DynamicModule> {
     
     // @ts-ignore
     DataSourceOptions.entities = [UConfig, ULogs,ULogsType,USpecialUser,UUploadlUser,...TypeormFileStorage.GetEntitys()];
@@ -28,6 +28,7 @@ export class UpdataModule {
     // 这里总感觉不是这样弄得, 有机会改掉
     // 将dataSource注入到UpdataController中
     UpdataController.dataSource = dataSource;
+    UpdataController.packagePath = packagePath;
     
 
     return {
