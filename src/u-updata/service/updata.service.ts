@@ -49,9 +49,15 @@ export class UpdateService extends UpdateApp{
             }else{
                 newVersion = await this.fileStorage.getLatestVersion();
             }
+            
             // 比较版本
-            let state:number = Tools.compareVersion(version, newVersion)
-            resolve(state != 0)
+            if(this.fileStorage.isRollback || !isVersion){
+                let state:number = Tools.compareVersionStringent(version, newVersion)
+                resolve(state != 0)
+            }else{
+                let state:number = Tools.compareVersion(version, newVersion)
+                resolve(state != 0)
+            }
         })
     }
 

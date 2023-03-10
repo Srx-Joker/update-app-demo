@@ -4958,8 +4958,10 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==
 
-"update-app-server@file:.yalc/update-app-server":
-  version "1.0.11"
+update-app-server@1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/update-app-server/-/update-app-server-1.0.12.tgz#08c9db9c8325df8344714dfb2bc984acbb194ffd"
+  integrity sha512-0Hc7sSndPfER5eyMxIGbWm8y+j0Rp31AO/gpuknzXVb1ttD7DtieACYFaxA5xLT6Q2n1bz3Jw75IKHpAtGGoYQ==
   dependencies:
     typeorm "^0.3.12"
     uuid "^9.0.0"
