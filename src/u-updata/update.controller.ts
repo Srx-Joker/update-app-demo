@@ -6,27 +6,29 @@ import { DataSource } from "typeorm";
 import { UpdateService } from './service/updata.service';
 
 @Controller()
-export class UpdataController {
+export class UpdateController {
     private updateService: UpdateService;
-    public static dataSource: DataSource;
-    public static packagePath: string;
 
-
+    // 回调函数
+    public static CreateUpdateService: () => UpdateService;
     constructor() {
-        this.updateService = new UpdateService(UpdataController.dataSource, UpdataController.packagePath);
+        if(UpdateController.CreateUpdateService == null){
+            throw new Error("请设置CreateUpdateService");
+        }
+        this.updateService = UpdateController.CreateUpdateService();
     }
 
 
 
-    @Get('checkUpdate')
-    updateApp(@Query("version") version: string, @Query("userID") id:number): string {
+    @Get('checkUpdate')         
+    async updateApp(@Query("version") version: string, @Query("userID") id:number): Promise<boolean> {
         if (!version) {
             console.log("版本号为空")
             return
         }
 
-        console.log("当前版本：", version)
-        return this.updateService.CheckUpdate(version,id).toString();
+        let isNew =  await this.updateService.CheckUpdate(version,id);
+        return isNew
     }
 
     @Get('download/:apkName')
@@ -34,7 +36,6 @@ export class UpdataController {
     downloadApp(@Query("userID") id: string, @Res() res: Response) {
         res.download
         let taskID = uuid();
-        console.log("下载文件:", taskID, "用户ID:", id)
         if (!id) {
             console.log("用户ID为空")
             return
@@ -47,7 +48,6 @@ export class UpdataController {
     @Post('upload/')
     @FormDataRequest()
     uploadApp(@Body("file") file: Buffer, @Body("version") version: string,@Body("userID") id: string) {
-
         if (!file) {
             console.log("上传文件为空")
             return

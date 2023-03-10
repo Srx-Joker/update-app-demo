@@ -98,6 +98,7 @@ export class TypeormAc extends TypeormBase implements ACDBInterface{
      * @param version 版本号
      */
     checkUserNeedDownloadVersion(userId: number): Promise<boolean> {
+
         return new Promise((resolve, reject) => {
             this.entityManager.find(USpecialUser, {where: {u_id: userId}}).then((data) => {
                 if (data.length > 0) {

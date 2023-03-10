@@ -34,21 +34,25 @@ export class UpdateService extends UpdateApp{
 
     // 版本更新检查
     public async CheckUpdate(version: string,id:number):Promise<boolean> {
-        if(!version) return false;
-        
-        // 获取最新版本
-        let newVersion:string = ""
+        return new Promise<boolean>(async (resolve, reject) => {
+            // 检查版本是否为空
+            if(!version) return false;
+            
+            // 获取最新版本
+            let newVersion:string = ""
 
-        // 检查是否有特殊版本
-        let isVersion = await this.accessControl.checkUserNeedDownloadVersion(id)
-        if (isVersion) {
-            newVersion = await this.accessControl.getUserDownloadVersion(id)
-        }else{
-            newVersion = await this.fileStorage.getLatestVersion();
-        }
-        // 比较版本
-        let state:number = Tools.compareVersion(version, newVersion)
-        return state == 0;
+            // 检查是否有特殊版本
+            let isVersion = await this.accessControl.checkUserNeedDownloadVersion(id)
+
+            if (isVersion && id) {
+                newVersion = await this.accessControl.getUserDownloadVersion(id)
+            }else{
+                newVersion = await this.fileStorage.getLatestVersion();
+            }
+            // 比较版本
+            let state:number = Tools.compareVersion(version, newVersion)
+            resolve(state != 0)
+        })
     }
 
     async BeginDownload(version: string, next: (version: string) => void, refuse: ()=>void, dist: any):Promise<void> {
