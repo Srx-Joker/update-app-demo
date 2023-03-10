@@ -68,28 +68,28 @@ export class UpdateService extends UpdateApp{
     async BegineUpload(version: string, next: (version: string) => void, refuse: Function, dist: any): Promise<void> {
         // 检查用户是否有上传权限
         let access = await this.accessControl.checkUserIsUploadUser(dist.id)
-        console.log("上传权限：",access)
+        // console.log("上传权限：",access)
 
         if (access) {
             next(version)
         }else{
             refuse()
         }
-        console.log("上传版本：",version)
+        // console.log("上传版本：",version)
     }
 
     AfterDownload(file: string | Buffer,dist):void { 
         dist.res.download(file);
-        console.log("下载完成")
+        // console.log("下载完成")
     }
     RefuseDownload(version: string,dist):void {
-        console.log("下载失败-拒绝下载")
+        // console.log("下载失败-拒绝下载")
     }
     
     AfterUpload(version: string,dist):void {
-        console.log("上传完成")
+        // console.log("上传完成")
     }
     RefuseUpload(dist): void {
-        console.log("上传失败-拒绝上传")
+        // console.log("上传失败-拒绝上传")
     }
 }
